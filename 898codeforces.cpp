@@ -185,3 +185,70 @@ int32_t main() {
 	
 	return 0;
 } 
+++++++++++++++++++++++++++++++++++++++
+	#include <bits/stdc++.h>
+using namespace std;
+ 
+#ifndef ONLINE_JUDGE
+#include "algo/debug.h"
+#else
+#define dbg(...) ; 
+#define debug(...) ; 
+#define crndl ; 
+#endif
+ 
+void solve() {
+	
+	int n, k;
+	cin >> n >> k;
+	
+	vector<int> a(n), h(n);
+	for(int i = 0; i < n; i++) {
+		cin >> a[i];
+	}
+	
+	for(int i = 0; i < n; i++) {
+		cin >> h[i];
+	}
+	
+	int ans = 0;
+	long long sum = 0;
+	int start = 0;
+	
+	for(int end = 0; end < n; end++) {
+		if(end > 0 && h[end - 1] % h[end]) {
+			sum = 0;
+			start = end;
+		}
+		sum += a[end];
+		while(start <= end && sum > k) {
+			sum -= a[start];
+			start++;
+		}
+		int len = end - start + 1;
+		ans = max(ans, len);
+	}
+	
+	cout << ans << "\n";
+	
+}
+ 
+int32_t main() {
+    ios_base::sync_with_stdio(false);cin.tie(NULL);cout.tie(NULL);
+	#ifndef ONLINE_JUDGE
+    freopen("io/input.txt", "r", stdin);
+    freopen("io/output.txt", "w", stdout);
+    freopen("io/error.txt", "w", stderr);
+    #endif
+	
+	int t = 1;
+	cin >> t;
+	
+	for(int _t = 1; _t <= t; _t++) {
+		debug(Testcase, _t);
+		solve();
+		crndl;
+	}
+	
+	return 0;
+} ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
